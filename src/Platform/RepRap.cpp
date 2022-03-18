@@ -46,6 +46,10 @@
 # include "Display/Display.h"
 #endif
 
+#if SUPPORT_USB_FLASH_DRIVE
+# include "../Libraries/usb_flashdrive/usb_flashdrive.h"
+#endif
+
 #if HAS_SBC_INTERFACE
 # include "SBC/SbcInterface.h"
 #endif
@@ -780,6 +784,10 @@ void RepRap::Spin() noexcept
 		spinningModule = moduleSbcInterface;
 		sbcInterface->Spin();
 	}
+#endif
+
+#if SUPPORT_USB_FLASH_DRIVE
+	usbIdle();
 #endif
 
 	ticksInSpinState = 0;

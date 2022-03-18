@@ -50,6 +50,8 @@
 #include <Core.h>		// for digitalRead() and pinMode()
 #include <string.h>
 
+#include "../usb_flashdrive/usb_redirect.h"
+
 #define SUPPORT_SDHC	1
 
 #include "sd_mmc_protocol.h"
@@ -1844,6 +1846,7 @@ uint8_t sd_mmc_nb_slot(void)
 // The card is not selected on entry or at exit
 sd_mmc_err_t sd_mmc_check(uint8_t slot)
 {
+	USB_LUN_REDIRECT(slot, sd_mmc_check);
 	sd_mmc_err_t sd_mmc_err = sd_mmc_select_slot(slot);
 	if (sd_mmc_err != SD_MMC_INIT_ONGOING)
 	{
@@ -1869,6 +1872,7 @@ sd_mmc_err_t sd_mmc_check(uint8_t slot)
 
 card_type_t sd_mmc_get_type(uint8_t slot)
 {
+	USB_LUN_REDIRECT(slot, sd_mmc_get_type);
 	if (SD_MMC_OK != sd_mmc_select_slot(slot)) {
 		return CARD_TYPE_UNKNOWN;
 	}
@@ -1887,6 +1891,7 @@ card_version_t sd_mmc_get_version(uint8_t slot)
 
 uint32_t sd_mmc_get_capacity(uint8_t slot)
 {
+	USB_LUN_REDIRECT(slot, sd_mmc_get_capacity);
 #if 1 // This will only check for already present data. The old code below is unsafe if another task is accessing data already.
 	if (slot < SD_MMC_MEM_CNT && sd_mmc_cards[slot].state == SD_MMC_CARD_STATE_READY)
 	{
@@ -1923,6 +1928,7 @@ void sd_mmc_unmount(uint8_t slot)
 // Get the interface speed in bytes/sec
 uint32_t sd_mmc_get_interface_speed(uint8_t slot)
 {
+	USB_LUN_REDIRECT(slot, sd_mmc_get_interface_speed);
 	return sd_mmc_cards[slot].iface->getInterfaceSpeed();
 }
 

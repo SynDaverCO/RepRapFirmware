@@ -220,27 +220,27 @@
 
 // Optional kinematics support, to allow us to reduce flash memory usage
 #ifndef SUPPORT_LINEAR_DELTA
-# define SUPPORT_LINEAR_DELTA	1
+# define SUPPORT_LINEAR_DELTA	0 // Changed by MLT
 #endif
 
 #ifndef SUPPORT_ROTARY_DELTA
-# define SUPPORT_ROTARY_DELTA	1
+# define SUPPORT_ROTARY_DELTA	0 // Changed by MLT
 #endif
 
 #ifndef SUPPORT_POLAR
-# define SUPPORT_POLAR			1
+# define SUPPORT_POLAR			0 // Changed by MLT
 #endif
 
 #ifndef SUPPORT_SCARA
-# define SUPPORT_SCARA			1
+# define SUPPORT_SCARA			0 // Changed by MLT
 #endif
 
 #ifndef SUPPORT_FIVEBARSCARA
-# define SUPPORT_FIVEBARSCARA	1
+# define SUPPORT_FIVEBARSCARA	0 // Changed by MLT
 #endif
 
 #ifndef SUPPORT_HANGPRINTER
-# define SUPPORT_HANGPRINTER	1
+# define SUPPORT_HANGPRINTER	0 // Changed by MLT
 #endif
 
 // We must define MCU_HAS_UNIQUE_ID as either 0 or 1 so we can use it in maths

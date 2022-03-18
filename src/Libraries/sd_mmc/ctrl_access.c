@@ -61,15 +61,17 @@
 
 #include "ctrl_access.h"
 #include "sd_mmc_mem.h"
-
+#include "../usb_flashdrive/usb_redirect.h"
 
 Ctrl_status mem_test_unit_ready(uint8_t lun)
 {
+	USB_LUN_REDIRECT(lun, mem_test_unit_ready);
 	return (lun < MAX_LUN) ? sd_mmc_test_unit_ready(lun) : CTRL_FAIL;
 }
 
 Ctrl_status mem_read_capacity(uint8_t lun, uint32_t *u32_nb_sector)
 {
+	USB_LUN_REDIRECT(lun, mem_read_capacity, u32_nb_sector);
 	return (lun < MAX_LUN) ? sd_mmc_read_capacity(lun, u32_nb_sector) : CTRL_FAIL;
 }
 
@@ -81,7 +83,8 @@ uint8_t mem_sector_size(uint8_t lun)
 bool mem_wr_protect(uint8_t lun)
 {
 #if SUPPORT_WRITE_PROTECT
-	return (lun >= MAX_LUN) || sd_mmc_wr_protect(lun)e;
+	USB_LUN_REDIRECT(lun, mem_wr_protect);
+	return (lun >= MAX_LUN) || sd_mmc_wr_protect(lun);
 #else
 	return false;
 #endif
@@ -89,11 +92,13 @@ bool mem_wr_protect(uint8_t lun)
 
 Ctrl_status memory_2_ram(uint8_t lun, uint32_t addr, void *ram, uint32_t numBlocks)
 {
+	USB_LUN_REDIRECT(lun, memory_2_ram, addr, ram, numBlocks);
 	return (lun < MAX_LUN) ? sd_mmc_mem_2_ram(lun, addr, ram, numBlocks) : CTRL_FAIL;
 }
 
 Ctrl_status ram_2_memory(uint8_t lun, uint32_t addr, const void *ram, uint32_t numBlocks)
 {
+	USB_LUN_REDIRECT(lun, ram_2_memory, addr, ram, numBlocks);
 	return (lun < MAX_LUN) ? sd_mmc_ram_2_mem(lun, addr, ram, numBlocks) : CTRL_FAIL;
 }
 

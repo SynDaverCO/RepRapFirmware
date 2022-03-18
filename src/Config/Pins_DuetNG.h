@@ -98,6 +98,8 @@ constexpr uint32_t IAP_IMAGE_START = 0x20018000;	// IAP is loaded into the last 
 #define USE_CACHE				1					// set nonzero to enable the cache
 #define USE_MPU					0					// set nonzero to enable the memory protection unit
 
+#define SUPPORT_USB_FLASH_DRIVE 1
+
 // The physical capabilities of the machine
 
 constexpr size_t NumDirectDrivers = 12;				// The maximum number of drives supported directly by the electronics
